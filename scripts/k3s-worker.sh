@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get update && apt-get upgrade -y
+export DEBIAN_FRONTEND=noninteractive ; sudo apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --force-yes
 
 # Installing and enabling fail2ban
 sudo apt-get install -y fail2ban
