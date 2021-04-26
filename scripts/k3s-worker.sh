@@ -7,6 +7,8 @@ sudo apt-get install -y fail2ban
 sudo systemctl start fail2ban
 sudo systemctl enable fail2ban
 
+INTERNALIP=`ip -br a | grep ens10 | awk '{ print $3 }' | awk -F\/ '{print $1}'`
+
 # Initializing Master
 curl -sfL https://get.k3s.io | K3S_TOKEN=${secret} \
-    sh -s - agent --token=${secret} --server https://${leader_ip}:6443 --kubelet-arg="cloud-provider=external"
+    sh -s - agent --token=${secret} --server https://${leader_ip}:6443 --kubelet-arg="cloud-provider=external" -i $INTERNALIP

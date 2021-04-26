@@ -48,12 +48,6 @@ resource "hcloud_network_subnet" "k3s_default_subnet" {
 
 
 #======================================================================================================
-# Creating Firewall
-resource "hcloud_firewall" "externalfw" {
-	name = "external"
-}
-
-#======================================================================================================
 # Create the LB needed for the cluster
 
 resource "hcloud_load_balancer" "k3s_management_lb" {
@@ -69,6 +63,12 @@ resource "hcloud_load_balancer_network" "k3s_management_lb_subnet" {
 
 output "lb_address" {
   value = hcloud_load_balancer.k3s_management_lb.ipv4
+}
+
+#======================================================================================================
+# Creating Firewall
+resource "hcloud_firewall" "externalfw" {
+   name = "external"
 }
 
 #======================================================================================================
