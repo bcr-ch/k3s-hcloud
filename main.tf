@@ -94,6 +94,7 @@ resource "hcloud_server" "k3s_management_node" {
 resource "hcloud_server_network" "k3s_management_node_subnet" {
   server_id  = hcloud_server.k3s_management_node.id
   subnet_id  = hcloud_network_subnet.k3s_default_subnet.id
+  ip = "172.16.0.5"
 }
 
 output "mgmt_address" {
@@ -125,6 +126,7 @@ resource "hcloud_server_network" "k3s_management_additional_nodes_subnets" {
   count      = var.additional_management_nodes
   server_id  = hcloud_server.k3s_management_additional_nodes[count.index].id
   subnet_id  = hcloud_network_subnet.k3s_default_subnet.id
+  ip = "172.16.0.${count.index + 10}"
 }
 
 #======================================================================================================
@@ -152,6 +154,7 @@ resource "hcloud_server_network" "k3s_worker_nodes_subnets" {
   count      = var.worker_nodes
   server_id  = hcloud_server.k3s_worker_nodes[count.index].id
   subnet_id  = hcloud_network_subnet.k3s_default_subnet.id
+  ip = "172.16.0.${count.index+50}"
 }
 
 #======================================================================================================
